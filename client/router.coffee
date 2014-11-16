@@ -14,4 +14,8 @@ router.route '/login',
   view: loginView
   el: 'content'
 
+router.route '/profile',
+  title: 'Profile'
+  el: 'content'
+
 router.start()

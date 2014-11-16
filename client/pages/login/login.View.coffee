@@ -49,7 +49,9 @@ module.exports =
         user:            userLogingIn
 
       $.post destinationUrl, submission, (data) ->
-        console.log 'THIS IS DATA', data
+        switch data.message
+          when 'Password correct'
+            window.location.replace('http://www.homestarrunner.net')
 
     render: ->
       div {className: 'content'},

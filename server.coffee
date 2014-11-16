@@ -57,7 +57,10 @@ router.route '/'
               passwordAttempted = request.body.user.password
               actualPassword = user.password
               if passwordAttempted is actualPassword
-                response.json message: 'Password correct'
+                reply =
+                  message: 'Password correct'
+                  direction: user.id
+                response.json reply
                 user.numberOfLogins++
                 user.save (error) ->
                   if error
