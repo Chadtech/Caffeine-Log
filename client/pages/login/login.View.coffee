@@ -27,14 +27,29 @@ module.exports =
 
     register: ->
       desintationUrl = 'http://localhost:8091/api'
-      submission = 
-        username: @state.registerUsername
-        password: @state.registerPassword
+
+      newUser = 
+        username:       @state.registerUsername
+        password:       @state.registerPassword
+      submission =
+        submissionType: 'register'
+        user:           newUser
+
       $.post desintationUrl, submission, (data) ->
         console.log 'THIS IS DATA ', data
 
     login: ->
-      # WIP
+      destinationUrl = 'http://localhost:8091/api'
+
+      userLogingIn =
+        username:        @state.loginUsername
+        password:        @state.loginPassword
+      submission =
+        submissionType: 'login'
+        user:            userLogingIn
+
+      $.post destinationUrl, submission, (data) ->
+        console.log 'THIS IS DATA', data
 
     render: ->
       div {className: 'content'},

@@ -16,7 +16,6 @@ router = express.Router()
 
 router.use (request, response, next) ->
   console.log 'SOMETHING HAPPENING'
-  response.json message: ' HI THERE '
   next()
 
 router.route '/'
@@ -28,9 +27,46 @@ router.route '/'
       response.json user
 
   .post (request, response) ->
-    console.log 'GOT POST', request.body
-    username = request.body.username
-    password = request.body.password
+    console.log 'Post happened'
+    switch request.body.submissionType
+      when 'register'
+        User.findOne {name: request.body.user.username}, (error, user) ->
+          if error
+            console.log 'ERROR ', error
+          else
+            if user isnt null
+              response.json {message: 'username taken'}
+              console.log 'User attempted registration, but username was already taken'
+            else
+              newUser = new User()
+              newUser.name = request.body.user.username
+              newUser.password = request.body.user.password
+              newUser.numberOfLogins = 0
+              newUser.save (error) ->
+                if error
+                  response.send error
+                  console.log 'Error in creating new user ', error
+              response.json message: 'User created'
+              console.log 'User created ', newUser.name
+      when 'login'
+        User.findOne {name: request.body.user.username}, (error, user) ->
+          if error
+            console.log 'ERROR ', error
+          else
+            if user isnt null
+              passwordAttempted = request.body.user.password
+              actualPassword = user.password
+              if passwordAttempted is actualPassword
+                response.json message: 'Password correct'
+                user.numberOfLogins++
+                user.save (error) ->
+                  if error
+                    response.send error
+                    console.log 'Error in loging in ', error
+              else
+                response.json message: 'Did not work'
+            else
+              response.json message: 'Did not work'
 
 app.use express.static join __dirname, 'public'
 
@@ -44,8 +80,6 @@ app.get '/*', (request, response) ->
   adminFile = join __dirname, 'public/template.html'
   response.status 200
     .sendFile adminFile
-
-
 
 httpServer = http.createServer app
 
