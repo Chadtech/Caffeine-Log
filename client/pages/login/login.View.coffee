@@ -13,6 +13,9 @@ module.exports =
       registerUsername: ''
       registerPassword: ''
 
+      loginClass: 'input'
+
+
     handleLoginUsername: (event) ->
       @setState loginUsername: event.target.value
 
@@ -38,6 +41,30 @@ module.exports =
       $.post desintationUrl, submission, (data) ->
         console.log 'THIS IS DATA ', data
 
+    loginSuccess: ->
+      @setState loginClass: 'input success'
+
+    loginFail: ->
+      @setState loginClass: 'input problem'
+      @setState loginUsername: 'Incorrect'
+
+      reset = @loginReset
+      setTimeout ->
+        reset()
+      , 2000
+
+      clear = @passwordClear
+      setTimeout ->
+        clear()
+      , 3000
+
+    loginReset: ->
+      @setState loginClass: 'input'
+      @setState loginUsername: 'username'
+
+    passwordClear: ->
+      @setState loginPassword: ''
+
     login: ->
       destinationUrl = 'http://localhost:8091/api'
 
@@ -48,10 +75,16 @@ module.exports =
         submissionType: 'login'
         user:            userLogingIn
 
+      failAct = @loginFail
+      successAct = @loginSuccess
+
       $.post destinationUrl, submission, (data) ->
         switch data.message
           when 'Password correct'
-            window.location.replace('http://www.homestarrunner.net')
+            successAct()
+            window.location.replace('http://localhost:8091/profile/' + data.direction)
+          when 'Did not work'
+            failAct()
 
     render: ->
       div {className: 'content'},
@@ -63,13 +96,13 @@ module.exports =
             p {className: 'point'}, 'Login'
 
             input 
-              className:   'input'
+              className:   @state.loginClass
               placeholder: 'username'
               value:       @state.loginUsername
               onChange:    @handleLoginUsername
 
             input 
-              className:   'input'
+              className:   @state.loginClass
               placeholder: 'password'
               type:        'password'
               value:       @state.loginPassword

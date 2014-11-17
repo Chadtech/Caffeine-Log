@@ -15,7 +15,7 @@ router.route '/login',
   view: loginView
   el: 'content'
 
-router.route '/profile',
+router.route '/profile/:id',
   title: 'Profile'
   view: profileView
   el: 'content'

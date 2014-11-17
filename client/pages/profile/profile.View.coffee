@@ -8,8 +8,9 @@ module.exports =
   fission.modelView
     model: User
 
-   #init: ->
-   #   console.log 'A', window.location
+    init: ->
+      console.log 'A', window.location.href
+      return null
 
     render: ->
       div {className: 'content'},
