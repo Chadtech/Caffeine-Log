@@ -20,11 +20,23 @@ router.use (request, response, next) ->
 
 router.route '/'
   .get (request, response) ->
+    console.log 'A'
+    idToQuery = request.query.id
+    User.findById idToQuery, (error, user) ->
+      if error
+        console.log 'ERROR ', error
+      informationToGive =
+        username: user.name
+        numberOfLogins: user.numberOfLogins
+      response.json informationToGive
+    ###
     User.findById request.params.user_id, (error, user) ->
       if error
         response.send error
         console.log 'ERROR A'
+      console.log
       response.json user
+    ###
 
   .post (request, response) ->
     console.log 'Post happened'
