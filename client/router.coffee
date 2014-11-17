@@ -1,6 +1,7 @@
 fission = require './app'
 homeView = require './pages/home/home.View'
 loginView = require './pages/login/login.View'
+profileView = require './pages/profile/profile.View'
 
 router = fission.router
 
@@ -16,6 +17,7 @@ router.route '/login',
 
 router.route '/profile',
   title: 'Profile'
+  view: profileView
   el: 'content'
 
 router.start()
