@@ -35,7 +35,7 @@ router.route '/'
             console.log 'ERROR ', error
           else
             if user isnt null
-              response.json {message: 'username taken'}
+              response.json {message: 'Username taken'}
               console.log 'User attempted registration, but username was already taken'
             else
               newUser = new User()

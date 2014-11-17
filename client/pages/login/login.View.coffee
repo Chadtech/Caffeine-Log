@@ -14,7 +14,7 @@ module.exports =
       registerPassword: ''
 
       loginClass: 'input'
-
+      registerClass: 'input'
 
     handleLoginUsername: (event) ->
       @setState loginUsername: event.target.value
@@ -38,31 +38,62 @@ module.exports =
         submissionType: 'register'
         user:           newUser
 
+      failAct = @registerFail
+      successAct = @registerSuccess
+
       $.post desintationUrl, submission, (data) ->
-        console.log 'THIS IS DATA ', data
+        switch data.message
+          when 'User created'
+            successAct()
+          when 'Username taken'
+            failAct()
+
+    registerSucess: ->
+      @setState registerClass: 'input success'
+
+    registerFail: ->
+      @setState registerClass: 'input problem'
+      @setState registerUsername: 'already taken'
+
+      reset = @registerReset
+      setTimeout ->
+        reset()
+      , 2000
+
+      clear = @registerClear
+      setTimeout ->
+        clear()
+      , 3000
+
+    registerReset: ->
+      @setState registerClass: 'input'
+
+    registerClear: ->
+      @setState registerUsername: ''
+      @setState registerPassword: ''
 
     loginSuccess: ->
       @setState loginClass: 'input success'
 
     loginFail: ->
       @setState loginClass: 'input problem'
-      @setState loginUsername: 'Incorrect'
+      @setState loginUsername: 'incorrect'
 
       reset = @loginReset
       setTimeout ->
         reset()
       , 2000
 
-      clear = @passwordClear
+      clear = @loginClear
       setTimeout ->
         clear()
       , 3000
 
     loginReset: ->
       @setState loginClass: 'input'
-      @setState loginUsername: 'username'
 
-    passwordClear: ->
+    loginClear: ->
+      @setState loginUsername: ''
       @setState loginPassword: ''
 
     login: ->
@@ -82,7 +113,11 @@ module.exports =
         switch data.message
           when 'Password correct'
             successAct()
-            window.location.replace('http://localhost:8091/profile/' + data.direction)
+
+            profilePage = 'http://localhost:8091/profile/'
+            profilePage += data.direction
+            window.location.replace(profilePage)
+
           when 'Did not work'
             failAct()
 
@@ -119,13 +154,13 @@ module.exports =
             p {className: 'point'}, 'Register'
 
             input 
-              className:   'input'
+              className:   @state.registerClass
               placeholder: 'username'
               value:       @state.registerUsername
               onChange:    @handleRegisterUsername
             
             input 
-              className:   'input'
+              className:   @state.registerClass
               type:        'password'
               placeholder: 'password'
               value:       @state.registerPassword
