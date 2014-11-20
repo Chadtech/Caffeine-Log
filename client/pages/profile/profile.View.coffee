@@ -9,29 +9,13 @@ module.exports =
     model: User
 
     getInitialState: ->
-      name: ''
-      loginCount: ''
-
-    setUserInformation: (name, loginCount) ->
-      @setState name: name
-      @setState loginCount: loginCount
-      console.log 'B', @state.name
-      console.log 'C', @state.loginCount
-
-    #init: ->
-    #  console.log '9', @model.id
-    #  destination = 'http://localhost:8091/api'
-    #  submission =
-    #    id: @model.id
-    #  console.log 'A', submission
-    #  set = @setUserInformation
-    #  $.get destination, submission, (data) ->
-    #    console.log 'A.1', data
-    #    set(data.name, data.numberOfLogins)
-
-      return null
+      id: @model.id
 
 
+    showId: ->
+      console.log 'A', @model.id
+      console.log 'B', @state.id
+      console.log 'C', @model.name
 
     render: ->
       div {className: 'content'},
@@ -41,6 +25,7 @@ module.exports =
             'HELLO'
           p {className: 'point'},
             @model.id
-            @init()
+          #input {className: 'input', type:'submit', onClick:@showId}
+
 
 

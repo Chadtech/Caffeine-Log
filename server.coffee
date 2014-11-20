@@ -25,10 +25,11 @@ router.route '/'
     User.findById idToQuery, (error, user) ->
       if error
         console.log 'ERROR ', error
-      informationToGive =
-        username: user.name
-        numberOfLogins: user.numberOfLogins
-      response.json informationToGive
+      console.log 'B', user
+      #informationToGive =
+      #  username: user.name
+      #  numberOfLogins: user.numberOfLogins
+      #response.json informationToGive
     ###
     User.findById request.params.user_id, (error, user) ->
       if error
