@@ -116,6 +116,7 @@ module.exports =
 
             profilePage = 'http://localhost:8091/profile/'
             profilePage += data.direction
+            console.log profilePage
             window.location.replace(profilePage)
 
           when 'Did not work'
