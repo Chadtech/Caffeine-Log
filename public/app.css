@@ -88,12 +88,17 @@ body {
   width: auto;
   height: auto;
 }
+.block {
+  display: inline-block;
+  white-space: nowrap;
+}
 .input {
   transition: all 1s;
   margin-right: 1em;
   padding-left: 0em;
   padding-right: 0em;
   margin-bottom: 1em;
+  width: 370px;
   font-smooth: never;
   -webkit-font-smoothing: none;
   font-family: CtCommandPrompt;
@@ -120,7 +125,7 @@ body {
 }
 .submit {
   transition: all 0.25s;
-  width: 185px;
+  width: 370px;
   padding-left: 0.6em;
   padding-right: 0.6em;
   font-smooth: never;

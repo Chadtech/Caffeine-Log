@@ -1,14 +1,11 @@
 mongoose = require 'mongoose'
 Schema = mongoose.Schema
 
-ConsumptionSchema = new Schema {date: 'number', amount: 'number'}
+props =
+  date:     'number'
+  amount:   'number'
+  consumer: 'string'
+
+ConsumptionSchema = new Schema props
 
 module.exports = mongoose.model 'Consumption', ConsumptionSchema
-
-###
-  
-  20141115164626
-  yyyymmddhhmmss
-  xxxx1231235959
-
-###

@@ -5,4 +5,6 @@ module.exports =
     props:
       name: 'string'
       id: 'string'
-    url: 'api/user'
+      numberOfLogins: 'number'
+      consumption: 'array'
+    url: 'http://localhost:8091/api/user'

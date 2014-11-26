@@ -5,5 +5,5 @@ module.exports =
     props:
       date: 'number'
       amount: 'number'
+      consumer: 'string'
       id: 'string'
-

@@ -5,7 +5,6 @@ fission = require '../../app'
 module.exports =
   fission.view
     render: ->
-      console.log 'A'
       div {className: 'content'},
         div {className: 'spacer'}
         div {className: 'indent'},

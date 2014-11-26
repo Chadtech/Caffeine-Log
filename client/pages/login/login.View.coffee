@@ -8,12 +8,12 @@ module.exports =
   fission.view
 
     getInitialState: ->
-      loginUsername: ''
-      loginPassword: ''
+      loginUsername:    ''
+      loginPassword:    ''
       registerUsername: ''
       registerPassword: ''
 
-      loginClass: 'input'
+      loginClass:    'input'
       registerClass: 'input'
 
     handleLoginUsername: (event) ->
@@ -34,6 +34,7 @@ module.exports =
       newUser = 
         username:       @state.registerUsername
         password:       @state.registerPassword
+        
       submission =
         submissionType: 'register'
         user:           newUser
@@ -48,7 +49,7 @@ module.exports =
           when 'Username taken'
             failAct()
 
-    registerSucess: ->
+    registerSuccess: ->
       @setState registerClass: 'input success'
 
     registerFail: ->
@@ -116,7 +117,6 @@ module.exports =
 
             profilePage = 'http://localhost:8091/profile/'
             profilePage += data.direction
-            console.log profilePage
             window.location.replace(profilePage)
 
           when 'Did not work'
