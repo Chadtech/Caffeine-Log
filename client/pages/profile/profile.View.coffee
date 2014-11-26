@@ -19,12 +19,8 @@ module.exports =
   fission.modelView
     model: User
 
-    init: ->
-      console.log 'AA'
-
     getInitialState: ->
       consumptionItem: ''
-      consumptionOfUser: @getConsumption
 
     show: ->
       console.log 'Model Consumption', @model.consumption
@@ -51,7 +47,6 @@ module.exports =
       @setState consumptionItem: event.target.value
 
     render: ->
-      #console.log @model.url()
       div {className: 'content'},
         div {className: 'spacer'}
         div {className: 'indent'},
