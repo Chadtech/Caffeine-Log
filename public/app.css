@@ -98,7 +98,7 @@ body {
   padding-left: 0em;
   padding-right: 0em;
   margin-bottom: 1em;
-  width: 370px;
+  width: 185px;
   font-smooth: never;
   -webkit-font-smoothing: none;
   font-family: CtCommandPrompt;
@@ -108,6 +108,9 @@ body {
   background: #404040;
   border: none;
   outline: none;
+}
+.input.wide {
+  width: 370px;
 }
 .input.problem {
   background: #f23d21;
@@ -125,7 +128,7 @@ body {
 }
 .submit {
   transition: all 0.25s;
-  width: 370px;
+  width: 185px;
   padding-left: 0.6em;
   padding-right: 0.6em;
   font-smooth: never;
@@ -138,6 +141,9 @@ body {
   text-decoration: none;
   border: none;
   outline: none;
+}
+.submit.wide {
+  width: 370px;
 }
 .submit.add {
   margin-top: 1.2em;

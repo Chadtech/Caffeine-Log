@@ -94,10 +94,12 @@ body
   padding-left 0em
   padding-right 0em
   margin-bottom 1em
-  width 370px
+  width 185px
   specifyFont(rgba(192, 192, 192, 1))
   background rgba(64, 64, 64, 1)
   inputBasics()
+  &.wide
+    width 370px
   &.problem
     background #f23d21
     color rgba(0, 0, 0, 1)
@@ -112,12 +114,14 @@ body
     
 .submit
   transition all 0.25s
-  width 370px
+  width 185px
   padding-left 0.6em
   padding-right 0.6em
   specifyFont(rgba(0, 0, 0, 1))
   background rgba(64, 64, 64, 1)
   text-decoration none
+  &.wide
+    width 370px
   inputBasics()
   &.add
     margin-top 1.2em

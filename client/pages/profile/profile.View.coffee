@@ -1,5 +1,6 @@
 fission = require '../../app'
 User = require '../../models/user'
+Consumption = require '../../models/consumption'
 $ = require 'jquery'
 
 {div, input, p, canvas, br} = fission.React.DOM
@@ -15,15 +16,32 @@ getMomentOfConsumption = () ->
 
   return formattedMoment
 
+consumptionView = (consumptionItem) ->
+  if consumptionItem is undefined
+    return fission.view
+      render: ->
+        p
+          className: 'point'
+          'LOADING'
+  else
+    consumptionItem = consumptionItem[0]
+    return fission.view
+      render: ->
+        p
+          className: 'point'
+          consumptionItem.toString()
+
 module.exports =
   fission.modelView
     model: User
 
     getInitialState: ->
       consumptionItem: ''
+      consumptionOfUser: @model.consumption
 
     show: ->
-      console.log 'Model Consumption', @model.consumption
+      console.log 'Model Consumption', @model.consumption[0]
+      console.log 'toString()', @model.consumption[0].toString()
 
     logConsumption: ->
       destinationUrl = 'http://localhost:8091/api'
@@ -34,7 +52,7 @@ module.exports =
         amount: 10
         momentOfConsumption: getMomentOfConsumption()
 
-      console.log @state.consumptionOfUser()
+      console.log @state.consumptionOfUser
 
       submission = 
         submissionType: 'log consumption'
@@ -66,7 +84,7 @@ module.exports =
             className: 'point',
             'Number Of Logins : ' + @model.numberOfLogins
           input
-            className: 'submit' 
+            className: 'submit wide' 
             type:      'submit'
             value:     'Console Log @Model'
             onClick:   @show
@@ -76,15 +94,28 @@ module.exports =
             className: 'point'
             'Log Consumption'
           input
-            className:   'input'
+            className:   'input wide'
             placeholder: '<what you just drank>'
             value:       @state.consumptionItem
             onChange:    @handleConsumptionField
           input
-            className:  'submit'
+            className:  'submit wide'
             type:       'submit'
             value:      'Log'
             onClick:    @logConsumption
+
+          div {className: 'break'}
+          p
+            className: 'point'
+            'Consumption'
+
+          if @model.consumption isnt undefined
+            for time in @model.consumption
+              p
+                className: 'point'
+                time.date + ' : ' + time.amount + 'mg'
+
+
 
 
 
